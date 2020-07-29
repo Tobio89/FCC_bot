@@ -1,0 +1,1 @@
+worker: python FCC_bot.py
