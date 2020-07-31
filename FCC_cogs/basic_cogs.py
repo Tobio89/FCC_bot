@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-
+from datetime import datetime
 
 
 class Basic(commands.Cog):
@@ -53,11 +53,16 @@ class Basic(commands.Cog):
         except:
             await ctx.send(f"Nope, I'm not being {status}. Try online, idle, dnd, invisible or offline")
     
-    @commands.has_role('Admin')
-    @commands.command(brief="Mess with what the bot is playing")
-    async def activity(self, ctx, *, activity):
-        print(f'Changed activity to "Playing {activity}"')
-        await self.client.change_presence(activity=discord.Game(activity))
+    # @commands.has_role('Admin')
+    # @commands.command(brief="Mess with what the bot is playing")
+    # async def activity(self, ctx, *, activity):
+        
+    #     if activity == None or activity.lower() == 'clear':
+    #         print('Removed playing activity')
+    #         await self.client.change_presence(activity=discord.Game(None, end=datetime.now()))
+    #     else:
+    #         print(f'Changed activity to "Playing {activity}"')
+    #         await self.client.change_presence(activity=discord.Game(activity))
 
     
     @commands.command()
