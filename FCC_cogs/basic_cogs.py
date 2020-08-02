@@ -12,6 +12,12 @@ class Basic(commands.Cog):
     @commands.Cog.listener() #This is equal to @client.event, but for cogs.
     async def on_ready(self):
         print('FCC Bot is activated...')
+    
+
+    @commands.Cog.listener()
+    async def on_member_join(self, ctx, member):
+        print(f'User {member} has joined.')
+        await  member.add_roles(discord.utils.get(ctx.guild.roles, name='Newcomers'))
 
 
     # Commands
@@ -53,16 +59,6 @@ class Basic(commands.Cog):
         except:
             await ctx.send(f"Nope, I'm not being {status}. Try online, idle, dnd, invisible or offline")
     
-    # @commands.has_role('Admin')
-    # @commands.command(brief="Mess with what the bot is playing")
-    # async def activity(self, ctx, *, activity):
-        
-    #     if activity == None or activity.lower() == 'clear':
-    #         print('Removed playing activity')
-    #         await self.client.change_presence(activity=discord.Game(None, end=datetime.now()))
-    #     else:
-    #         print(f'Changed activity to "Playing {activity}"')
-    #         await self.client.change_presence(activity=discord.Game(activity))
 
     
     @commands.command()
@@ -110,6 +106,9 @@ class Basic(commands.Cog):
                     for role_removal in possible_roles:
                         await user.remove_roles(discord.utils.get(ctx.guild.roles, name=role_removal))
                         await ctx.send(f'You were removed from the {role_removal} role.')
+
+                    if 'Newcomers' in user_existing_roles:
+                        await user.remove_roles(discord.utils.get(ctx.guild.roles, name='Newcomers'))
 
 
                 else:
