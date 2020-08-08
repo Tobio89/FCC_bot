@@ -15,9 +15,14 @@ class Basic(commands.Cog):
     
 
     @commands.Cog.listener()
-    async def on_member_join(self, ctx, member):
+    async def on_member_join(member):
         print(f'User {member} has joined.')
-        await  member.add_roles(discord.utils.get(ctx.guild.roles, name='Newcomers'))
+        server = member.guild
+        general_channel = discord.utils.get(server.text_channels, name="general")
+        newcomer_role = discord.utils.get(server.roles, name="Newcomers")
+        await member.add_roles(newcomer_role)
+        await general_channel.send(f"Welcome, @{member}! Please tell us which FCC group you're from! Type !role FCC Seoul or !role FCC Ulsan to join that group right here on the FCC Korea discord!")
+
 
 
     # Commands
