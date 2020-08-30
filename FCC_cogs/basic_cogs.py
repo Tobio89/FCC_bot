@@ -15,7 +15,7 @@ class Basic(commands.Cog):
     
 
     @commands.Cog.listener()
-    async def on_member_join(member):
+    async def on_member_join(self, member):
         print(f'User {member} has joined.')
         server = member.guild
         general_channel = discord.utils.get(server.text_channels, name="general")
