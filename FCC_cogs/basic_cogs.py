@@ -65,7 +65,6 @@ class Basic(commands.Cog):
             await ctx.send(f"Nope, I'm not being {status}. Try online, idle, dnd, invisible or offline")
     
 
-    
     @commands.command()
     async def role(cself, ctx, *, requested_role):
 
@@ -77,47 +76,54 @@ class Basic(commands.Cog):
         # If they want help:
         if requested_role.lower() ==  'help':
             await ctx.send('Type .role FCC Ulsan or .role FCC Seoul to join the sub-group :)')
+
+
+        # If they actually entered a role:
         else:
 
-            possible_roles = ['FCC Ulsan', 'FCC Seoul']
-            possible_roles_lower = [r.lower() for r in possible_roles]
-
-            # Check to see if that role exists / is in the possible role list
-            if requested_role.lower() in possible_roles_lower:
-                print('User requests a valid role.')
-                r_index = possible_roles_lower.index(requested_role.lower())
-                possible_roles.pop(r_index)
-            else:
-                print('Role does not exist.')
-                await ctx.send(f"Role {requested_role} isn't a possible role.")
-                await ctx.send(f"Possible roles are: {(', ').join(possible_roles)}.")
-
-            #Acquire existing roles to prevent double-roling :S
+            #Acquire existing roles to prevent double-roling
             user_existing_roles = [r.name.lower() for r in user.roles]
-            
+
             # Admins can't have their roles edited
             if 'admin' in user_existing_roles:
                 await ctx.send("Sorry: I am not permitted to alter an admin's roles.")
 
-            else: #Not an admin
+            # Handle requesting a role they're already in
+            elif requested_role.lower() in user_existing_roles:
+                await ctx.send("It looks like you're already in that group. You can't join twice!")
+            
+            # Not an admin:
+            else:
 
-                if requested_role.lower() not in user_existing_roles:
-                    #If the user isn't already that role already
-                    # Add the role
-                    await  user.add_roles(discord.utils.get(ctx.guild.roles, name=requested_role))
-                    await ctx.send(f'{user} has joined the {requested_role} role.')
+                possible_roles = ['FCC Ulsan', 'FCC Seoul']
+                possible_roles_lower = [r.lower() for r in possible_roles]
 
-                    # Check for opposite role:
-                    for role_removal in possible_roles:
-                        await user.remove_roles(discord.utils.get(ctx.guild.roles, name=role_removal))
-                        await ctx.send(f'You were removed from the {role_removal} role.')
+                # The role is a valid role they can join
+                if requested_role.lower() in possible_roles_lower:
+                    print(f'User requests valid role: {requested_role}')
 
-                    if 'Newcomers' in user_existing_roles:
+                    # Remove the user from the Newcomers group.
+                    if 'newcomers' in user_existing_roles:
                         await user.remove_roles(discord.utils.get(ctx.guild.roles, name='Newcomers'))
+                        
+                        await ctx.send(f'Thanks for joining a group!\nYou were removed from the Newcomers group')
 
+                    
+                    for role in possible_roles:
+                        # If the user is already in a group:
+                        if role.lower() in user_existing_roles:
+                            await user.remove_roles(discord.utils.get(ctx.guild.roles, name=role))
+                            await ctx.send(f'You are no longer in the {role} group.')
+                            print(f'User was removed from {role}')
+                    
 
+                    await user.add_roles(discord.utils.get(ctx.guild.roles, name=requested_role))
+                    await ctx.send(f'You are now in the {requested_role} group.')
+                
+                #The role they entered isn't possible (doesn't exist or no permission)
                 else:
-                    await ctx.send(f'You already have that role')
+                    await ctx.send(f"You can't join the {requested_role} group.")
+
 
         
     @commands.command()
