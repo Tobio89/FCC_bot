@@ -1,7 +1,9 @@
 import discord, os
 from discord.ext import commands
 
-client = commands.Bot(command_prefix='!')
+intents = discord.Intents.all()
+
+client = commands.Bot(command_prefix='!', intents=intents)
 
 # These commands handle loading and unloading things from the cogs file.
 @commands.has_role('Admin')
