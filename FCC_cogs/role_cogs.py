@@ -36,7 +36,8 @@ class Roles(commands.Cog):
         # Check if user responds to BOT ONLY in REACT-FOR-ROLES only
         if reaction.message.channel.name == "react-for-roles" and reaction.message.author.bot == True:
 
-            user_existing_roles = [role.name for role in user.roles]
+            user_existing_roles = [
+                role.name for role in user.roles if role.name != "@everyone"]
             # Can't edit admin roles!
             if "Admin" not in user_existing_roles:
 
@@ -77,7 +78,8 @@ class Roles(commands.Cog):
             if "Admin" not in user_existing_roles:
 
                 try:
-                    user_existing_roles = [role.name for role in user.roles]
+                    user_existing_roles = [
+                        role.name for role in user.roles if role.name != "@everyone"]
 
                     # Respond only to correct emoji
                     if reaction.emoji in emoji_roles.keys():
