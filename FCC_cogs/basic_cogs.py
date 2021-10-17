@@ -47,9 +47,9 @@ class Basic(commands.Cog):
     @commands.command()
     async def forcelog(self, ctx, *, message):
         if type(message) is str:
-            await self.post_log(f"📝 FORCELOG: USER: {ctx.message.author} FORCELOGS: {message}")
+            await self.post_log(f"📝 FORCELOG: USER: `{ctx.message.author}` FORCELOGS:\n```{message}```")
         else:
-            await self.post_log(f"📝 FORCELOG: USER: {ctx.message.author} FORCELOGS: " + " ".join(message))
+            await self.post_log(f"📝 FORCELOG: USER: `{ctx.message.author}` FORCELOGS:\n```" + " ".join(message) + "```")
 
     @commands.has_role('Admin')
     @commands.command(aliases=['erase'], brief='Erases one message by default.', hidden=True)
@@ -62,12 +62,12 @@ class Basic(commands.Cog):
             else:
                 print(f'Password {pw} was wrong, capped at 5')
                 amount = 5
-                await self.post_log(f"🧹 ERASE: USER: {ctx.message.author} No password lol")
+                await self.post_log(f"🧹 ERASE: USER: `{ctx.message.author}` No password lol")
 
         # The +1 is because to erase the messages, the bot replies.
         await ctx.channel.purge(limit=amount+1)
 
-        await self.post_log(f"🧹 ERASE: USER: {ctx.message.author} AMOUNT: {amount} LOCATION: {ctx.message.channel.name}")
+        await self.post_log(f"🧹 ERASE: USER: `{ctx.message.author}` AMOUNT: `{amount}` LOCATION: `{ctx.message.channel.name}`")
 
 
 def setup(client):

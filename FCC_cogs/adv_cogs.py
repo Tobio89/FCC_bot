@@ -26,7 +26,7 @@ class Advanced(commands.Cog):
         SO_URL = "https://stackoverflow.com/search?q="
 
         await ctx.send(f'{SO_URL}{terms}')
-        await self.post_log(f"🔎 SEARCH: USER: {ctx.message.author} TERMS: {terms}")
+        await self.post_log(f"🔎 SEARCH: USER: `{ctx.message.author}` TERMS: `{terms}`")
 
 
 def setup(client):

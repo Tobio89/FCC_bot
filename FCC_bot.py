@@ -22,9 +22,9 @@ async def load(ctx, extension):
     try:
         print(f'{extension} were loaded manually')
         client.load_extension(f'FCC_cogs.{extension}')
-        await post_log(ctx, f"✅ LOAD: USER: {ctx.message.author} LOADS: {extension}")
+        await post_log(ctx, f"✅ LOAD: USER: `{ctx.message.author}` LOADS: `{extension}`")
     except Exception as error:
-        await post_log(ctx, f"🚨 LOAD: USER: {ctx.message.author} LOADS: {extension}")
+        await post_log(ctx, f"🚨 LOAD: USER: `{ctx.message.author}` LOADS: `{extension}`")
         await post_log(ctx, f"```python {error}```")
         raise(error)
 
@@ -34,10 +34,10 @@ async def load(ctx, extension):
 async def unload(ctx, extension):
     try:
         client.unload_extension(f'FCC_cogs.{extension}')
-        await post_log(ctx, f"✅ UNLOAD: USER: {ctx.message.author} UNLOADS: {extension}")
+        await post_log(ctx, f"✅ UNLOAD: USER: `{ctx.message.author}` UNLOADS: `{extension}`")
         print(f'{extension} were unloaded manually')
     except Exception as error:
-        await post_log(ctx, f"🚨 UNLOAD: USER: {ctx.message.author} UNLOADS: {extension}")
+        await post_log(ctx, f"🚨 UNLOAD: USER: `{ctx.message.author}` UNLOADS: `{extension}`")
         await post_log(ctx, f"```python {error}```")
         raise(error)
 
@@ -49,9 +49,9 @@ async def reload(ctx, ext):
         client.unload_extension(f'FCC_cogs.{ext}')
         client.load_extension(f'FCC_cogs.{ext}')
         print(f'Reloading cog {ext}')
-        await post_log(ctx, f"✅ RELOAD: USER: {ctx.message.author} RELOADS: {ext}")
+        await post_log(ctx, f"✅ RELOAD: USER: `{ctx.message.author}` RELOADS: `{ext}`")
     except Exception as error:
-        await post_log(ctx, f"🚨 RELOAD: USER: {ctx.message.author} RELOADS: {ext}")
+        await post_log(ctx, f"🚨 RELOAD: USER: `{ctx.message.author}` RELOADS: `{ext}`")
         await post_log(ctx, f"```python {error}```")
         raise(error)
 
@@ -63,7 +63,7 @@ async def make_rfr_post(ctx):
     RFR_channel = discord.utils.get(
         server.text_channels, name="react-for-roles")
 
-    await post_log(ctx, f"🔥 TRIGGER: USER: {ctx.message.author} Request react-for-roles post")
+    await post_log(ctx, f"🔥 TRIGGER: USER: `{ctx.message.author}` Request react-for-roles post")
 
     await RFR_channel.send("Use the reactions to assign yourself roles!")
     await RFR_channel.send("🇰🇷 is Seoul-based\n🏙️ is Ulsan-based\n🌉 is Busan-based\n🛫 is Overseas-based")

@@ -51,23 +51,23 @@ class Roles(commands.Cog):
                             await user.add_roles(discord.utils.get(user.guild.roles, name=requested_role))
                             print(
                                 f"Role {requested_role} added to {user.name}")
-                            await self.post_log(f"🏷️ REACT-ROLE: ADD ROLE: USER:{user}: gains {requested_role} => {user_existing_roles}")
+                            await self.post_log(f"🏷️ REACT-ROLE: ADD ROLE: USER: `{user}`: gains `{requested_role}`")
 
                         if NOLOCATIONROLE in user_existing_roles:
                             await user.remove_roles(discord.utils.get(user.guild.roles, name=NOLOCATIONROLE))
                             print(
                                 f"Role {NOLOCATIONROLE} removed from {user.name}")
-                            await self.post_log(f"🏷️ REACT-ROLE: ADD ROLE: USER:{user}: is no longer {NOLOCATIONROLE}")
+                            await self.post_log(f"🏷️ REACT-ROLE: ADD ROLE: USER: `{user}`: is no longer `{NOLOCATIONROLE}`")
 
                     else:
-                        await self.post_log(f"REACT-ROLE: USER {user} used {reaction.emoji}, but it failed")
+                        await self.post_log(f"REACT-ROLE: USER `{user}` used {reaction.emoji}, but it failed")
 
                 except Exception as error:
-                    await self.post_log(f"🚨 REACT-ROLE: ADDING ROLE: USER:{user}: {user_existing_roles}")
+                    await self.post_log(f"🚨 REACT-ROLE: ADDING ROLE: USER: `{user}`:\n```{user_existing_roles}```")
                     await self.post_log(f"```python {error}```")
                     raise(error)
             else:
-                await self.post_log(f"🧻 ROLE: Admin {user} can't change roles")
+                await self.post_log(f"🧻 ROLE: Admin `{user}` can't change roles")
 
     @commands.Cog.listener()
     async def on_reaction_remove(self, reaction, user):
@@ -91,7 +91,7 @@ class Roles(commands.Cog):
                             user_existing_roles.remove(requested_role)
                             print(
                                 f"Role {requested_role} removed from {user.name}")
-                            await self.post_log(f"🏷️ REACT-ROLE: REMOVING ROLE: USER:{user}: Removes {requested_role} => {user_existing_roles}")
+                            await self.post_log(f"🏷️ REACT-ROLE: REMOVING ROLE: USER: `{user}`: Removes `{requested_role}`")
 
                             # check roles a user has
                             # if none of the location roles are in their thing, set them to no-location
@@ -100,20 +100,19 @@ class Roles(commands.Cog):
                             for role in location_based_roles:
                                 if role in user_existing_roles:
                                     should_assign_no_location = False
-                                    await self.post_log(f"🏷️ REACT-ROLE: USER:{user}: will NOT become {NOLOCATIONROLE}")
                                     break
 
                             if should_assign_no_location:
                                 await user.add_roles(discord.utils.get(user.guild.roles, name=NOLOCATIONROLE))
-                                await self.post_log(f"🏷️ REACT-ROLE: USER:{user}: Becomes {NOLOCATIONROLE}")
+                                await self.post_log(f"🏷️ REACT-ROLE: USER: `{user}`: Becomes `{NOLOCATIONROLE}`")
 
                 except Exception as error:
-                    await self.post_log(f"🚨 REACT-ROLE: REMOVING ROLE: USER:{user}: {user_existing_roles}")
+                    await self.post_log(f"🚨 REACT-ROLE: REMOVING ROLE: USER: `{user}`:\n```{user_existing_roles}```")
                     await self.post_log(f"```python {error}```")
                     raise(error)
 
             else:
-                await self.post_log(f"🧻 ROLE: Admin {user} can't change roles")
+                await self.post_log(f"🧻 ROLE: Admin `{user}` can't change roles")
 
 
 def setup(client):
