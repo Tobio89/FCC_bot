@@ -3,10 +3,10 @@ from discord.ext import commands
 
 
 emoji_roles = {
-    "🇰🇷": "Seoul-based",
-    "🏙️": "Ulsan-based",
-    "🌉": "Busan-based",
-    "🛫": "Overseas-based",
+    "💺": "Seoul-based",
+    "💗": "Ulsan-based",
+    "🚌": "Busan-based",
+    "🌄": "Overseas-based",
 }
 
 location_based_roles = emoji_roles.values()

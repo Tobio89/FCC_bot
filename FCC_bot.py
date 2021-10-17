@@ -66,8 +66,9 @@ async def make_rfr_post(ctx):
     await post_log(ctx, f"🔥 TRIGGER: USER: `{ctx.message.author}` Request react-for-roles post")
 
     await RFR_channel.send("Use the reactions to assign yourself roles!")
-    await RFR_channel.send("🇰🇷 is Seoul-based\n🏙️ is Ulsan-based\n🌉 is Busan-based\n🛫 is Overseas-based")
-    await RFR_channel.send("You can select multiple locations. Your user colour reflects the highest role on this list.\nUsers with no location-based roles will be green!\nIf your roles get messed up, message server owner Tobio.")
+    await RFR_channel.send("💺 is Seoul-based (red)\n💗 is Ulsan-based (blue)\n🚌 is Busan-based (purple)\n🌄 is Overseas-based (lime green)")
+    await RFR_channel.send("Typing the first two letters in the emoji search box should bring up those emoji :bulb:")
+    await RFR_channel.send("You can select multiple locations. Your user colour reflects the highest role on this list.\nUsers with no location-based roles will be dark green!\nIf your roles get messed up, message server owner Tobio.")
 
 
 for filename in os.listdir('./FCC_cogs'):
