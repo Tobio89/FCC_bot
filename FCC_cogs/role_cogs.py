@@ -34,6 +34,7 @@ class Roles(commands.Cog):
     @commands.Cog.listener()
     async def on_reaction_add(self, reaction, user):
         # Check if user responds to BOT ONLY in REACT-FOR-ROLES only
+
         if reaction.message.channel.name == "react-for-roles" and reaction.message.author.bot == True:
 
             user_existing_roles = [

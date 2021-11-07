@@ -23,6 +23,23 @@ class Basic(commands.Cog):
         print("INIT: Logger operational")
         await self.post_log("💡 INIT: Logger operational")
 
+        await self.post_log("😔 INIT: Refresh RFR Process Begins")
+
+        rfr_channel = discord.utils.get(
+            self.server.text_channels, name="react-for-roles")
+
+        await rfr_channel.purge(limit=6)
+        await self.post_log("😔 INIT: RFR Channel Cleared")
+
+        await rfr_channel.send("Use the reactions to assign yourself roles!")
+        await rfr_channel.send("💺 is Seoul-based (red)\n💗 is Ulsan-based (blue)\n🚌 is Busan-based (purple)\n🌄 is Overseas-based (lime green)")
+        await rfr_channel.send("You can select multiple locations. Your user colour reflects the lowest role on this list.\nUsers with no location-based roles will be dark green!")
+        await rfr_channel.send("Users can't post in this channel, but you can react! Click the react button and type *se*, *ul*, *bus*, or *ove* to find the role for you. ")
+        await rfr_channel.send("React For Roles is refreshed every day, but your role will persist. If you have any questions about it, or if your roles get messed up, message server owner Tobio.")
+
+        await self.post_log("😔 INIT: RFR Message Restored")
+        print("INIT: React-For-Roles post refreshed")
+
     @commands.Cog.listener()
     async def on_member_join(self, member):
         print(f'User {member} has joined.')

@@ -2,6 +2,8 @@ import discord
 import os
 from discord.ext import commands
 
+# import setENV
+
 intents = discord.Intents.all()
 
 client = commands.Bot(command_prefix='!', intents=intents)
@@ -67,9 +69,7 @@ async def make_rfr_post(ctx):
 
     await RFR_channel.send("Use the reactions to assign yourself roles!")
     await RFR_channel.send("💺 is Seoul-based (red)\n💗 is Ulsan-based (blue)\n🚌 is Busan-based (purple)\n🌄 is Overseas-based (lime green)")
-    await RFR_channel.send("Typing the first two letters in the emoji search box should bring up those emoji :bulb:")
     await RFR_channel.send("You can select multiple locations. Your user colour reflects the highest role on this list.\nUsers with no location-based roles will be dark green!\nIf your roles get messed up, message server owner Tobio.")
-
 
 for filename in os.listdir('./FCC_cogs'):
     if filename.endswith('.py'):
